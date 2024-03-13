@@ -5,30 +5,41 @@ import { Container, HStack, Heading, VStack } from '@chakra-ui/react';
 import Loader from './Loader';
 import { Image } from '@chakra-ui/react';
 import { Text } from '@chakra-ui/react';
+import ErrorComponent from './ErrorComponent';
 const Exchanges = () => {
 
   const[exchanges,setExchanges] =useState([]);
   const[loading,setloading] =useState(true);
+  const[error, setError]= useState(false);
 
   useEffect(()=>{
         const fetchExchanges = async()=>{
-          const {data}=  await axios.get(`${server}/exchanges`);
-          console.log(data);
+          try{
+            const {data}=  await axios.get(`${server}/exchanges`);
 
           setExchanges(data)
           setloading(false)
+          }
+          catch(error){
+            setError(true)
+            setloading(false)
+          }
         };
         
         fetchExchanges();
     },[]);
+
+    if(error){
+      return <ErrorComponent message={"Error while fetching messages"}/>
+    }
   return (
    <Container maxW={"container.xl"} >
     {loading? <Loader/> :
      <>
-     <HStack wrap={"wrap"} >
+     <HStack wrap={"wrap"} justifyContent={"space-evenly"} >
       {
         exchanges.map((crypto)=>(
-          <ExchangeCard key={crypto.id} name={crypto.name} img={crypto.image}  rank={crypto.trust_score_rank} url={crypto.yrl}/>
+          <ExchangeCard id={crypto.id} name={crypto.name} img={crypto.image}  rank={crypto.trust_score_rank} url={crypto.url}/>
         )
         )
       }
