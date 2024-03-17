@@ -30,8 +30,8 @@ const Coins = () => {
           setloading(false)
           }
           catch(error){
-            setError(true)
-            setloading(false)
+            // setError(true)
+            // setloading(false)
           }
         };
         
@@ -47,10 +47,9 @@ const Coins = () => {
           <Loader />
         ) : (
           <>
-          <RadioGroup value={currency}>
-            <HStack spacing={"4"} onChange={setCurrency} p={"8"}>
-              {/*  "₹" : currency==="eur" ? "€": "$";
- */}
+          <RadioGroup value={currency} onChange={setCurrency} p={"8"}>
+            <HStack spacing={"4"} >
+
             <Radio value={"inr"}>₹ INR</Radio>
             <Radio value={"eur"}>€ EURO</Radio>
             <Radio value={"usd"}>$ DOLLAR</Radio>

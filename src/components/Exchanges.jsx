@@ -21,8 +21,8 @@ const Exchanges = () => {
           setloading(false)
           }
           catch(error){
-            setError(true)
-            setloading(false)
+            // setError(true)
+            // setloading(false)
           }
         };
         
